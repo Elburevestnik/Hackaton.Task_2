@@ -2,9 +2,11 @@
  function getVariants() {
      var initPose = document.getElementById('pose').value;
      if(initPose === '') {
-         alert('Error! Please, enter initial position!')
+        alert('Error! Please, enter initial position!')
+     } else {
+        initPose = initPose.toUpperCase();
+        console.log(initPose)
      }
-
      var poseInBoard;
      var varOfNextSteps = [];
      // define chess board
