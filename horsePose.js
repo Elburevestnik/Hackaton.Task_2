@@ -1,41 +1,42 @@
 'use strict'
  function getVariants() {
      var initPose = document.getElementById('pose').value;
-     if(initPose === '') {
+     if((initPose === '') || (!checkInput(initPose))) {
         alert('Error! Please, enter initial position!')
      } else {
-        initPose = initPose.toUpperCase();
-        console.log(initPose)
-     }
-     var poseInBoard;
-     var varOfNextSteps = [];
-     // define chess board
-     var chessBoard = [
-        ['A8', 'B8', 'C8', 'D8', 'E8', 'F8', 'G8', 'H8'],
-        ['A7', 'B7', 'C7', 'D7', 'E7', 'F7', 'G7', 'H7'],
-        ['A6', 'B6', 'C6', 'D6', 'E6', 'F6', 'G6', 'H6'],
-        ['A5', 'B5', 'C5', 'D5', 'E5', 'F5', 'G5', 'H5'],
-        ['A4', 'B4', 'C4', 'D4', 'E4', 'F4', 'G4', 'H4'],
-        ['A3', 'B3', 'C3', 'D3', 'E3', 'F3', 'G3', 'H3'],
-        ['A2', 'B2', 'C2', 'D2', 'E2', 'F2', 'G2', 'H2'],
-        ['A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1']
-    ];
-     // find input data position in chess board
-     var flag = 0;
-    for (var i = 0; i < chessBoard[1].length; i++) {
-        for (var j = 0; j < chessBoard[1].length; j++) {
-            if(chessBoard[i][j] === initPose) {
-                poseInBoard = [i, j];
-                flag = 1;
-                break;
-            }
+         initPose = initPose.toUpperCase();
+         console.log(initPose)
+         var poseInBoard;
+         var varOfNextSteps = [];
+         // define chess board
+         var chessBoard = [
+             ['A8', 'B8', 'C8', 'D8', 'E8', 'F8', 'G8', 'H8'],
+             ['A7', 'B7', 'C7', 'D7', 'E7', 'F7', 'G7', 'H7'],
+             ['A6', 'B6', 'C6', 'D6', 'E6', 'F6', 'G6', 'H6'],
+             ['A5', 'B5', 'C5', 'D5', 'E5', 'F5', 'G5', 'H5'],
+             ['A4', 'B4', 'C4', 'D4', 'E4', 'F4', 'G4', 'H4'],
+             ['A3', 'B3', 'C3', 'D3', 'E3', 'F3', 'G3', 'H3'],
+             ['A2', 'B2', 'C2', 'D2', 'E2', 'F2', 'G2', 'H2'],
+             ['A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1']
+         ];
+         // find input data position in chess board
+         var flag = 0;
+         for (var i = 0; i < chessBoard[1].length; i++) {
+             for (var j = 0; j < chessBoard[1].length; j++) {
+                 if(chessBoard[i][j] === initPose) {
+                     poseInBoard = [i, j];
+                     flag = 1;
+                     break;
+                 }
 
-        }
-        if (flag) break;
-    }
-    // find variants of next steps
-     varOfNextSteps = nextStep(poseInBoard[0], poseInBoard[1], chessBoard)
-    alert( varOfNextSteps );
+             }
+             if (flag) break;
+         }
+         // find variants of next steps
+         varOfNextSteps = nextStep(poseInBoard[0], poseInBoard[1], chessBoard)
+         alert( varOfNextSteps );
+     }
+
  }
  function nextStep(i, j, chessBoard) {
     var dir = {
@@ -116,3 +117,20 @@
     });
     return nextStep;
  }
+  function checkInput(inpSym) {
+    var len = inpSym.length;
+    /*if (len == 2) {
+        var code1 = inpSym[0].charCode;
+        var code2 = inpSym[1].charCode;
+        if((((code1 <= 90)&&(code1 >= 64))||((code1 <= 122)&&(code1 >= 97))) && ((code2 <= 57) && (code2 >= 48))) {
+            return true;
+        } else return false;
+    } else return false;
+*/
+    if(len == 2) {
+        if(!(inpSym.search(/[A-z]/) === -1) && !(inpSym.search(/[1-8]/) === -1)) {
+            return true
+        } else return false;
+    } else return false;
+
+  }
